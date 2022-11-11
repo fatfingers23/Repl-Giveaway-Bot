@@ -1,1 +1,0 @@
-{"version":3,"file":"Giveaway.d.ts","sourceRoot":"","sources":["../../src/models/Giveaway.ts"],"names":[],"mappings":"AAAA,oBAAY,QAAQ,GAAG;IACrB,YAAY,EAAE,OAAO,CAAC;IACtB,SAAS,EAAE,KAAK,CAAC,MAAM,CAAC,CAAC;IACzB,SAAS,EAAE,MAAM,CAAC;IAClB,OAAO,EAAE,MAAM,CAAC;IAChB,WAAW,EAAE,MAAM,CAAC;IACpB,aAAa,EAAE,MAAM,CAAC;CACvB,CAAA"}

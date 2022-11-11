@@ -1,1 +1,0 @@
-{"version":3,"file":"giveawayService.d.ts","sourceRoot":"","sources":["../../src/services/giveawayService.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,MAAM,EAAE,MAAM,kBAAkB,CAAA;AAC9C,OAAO,KAAK,EAAE,QAAQ,EAAE,MAAM,oBAAoB,CAAA;AAElD,MAAM,CAAC,OAAO,OAAO,eAAe;IAElC,SAAS,CAAC,QAAQ,EAAE,MAAM,CAAC;gBAEf,QAAQ,OAAO;IAKd,cAAc,CAAC,QAAQ,EAAE,QAAQ,GAAG,OAAO,CAAC,QAAQ,CAAC;CAMnE"}
