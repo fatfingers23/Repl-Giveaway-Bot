@@ -12,6 +12,7 @@ export default class GiveawayService {
 
   public async createGiveaway(giveaway: Giveaway): Promise<Giveaway> {
     console.log(giveaway);
+    //todo write to a key as well called currentgiveaways that holds the ids of all the current giveaways
     await this.dbClient.set(`giveaways:${giveaway.guildId}:${giveaway.messageId}`, giveaway)
     return giveaway;
   }
