@@ -1,19 +1,27 @@
 import GiveawayService from '../../src/services/giveawayService'
 import type { Giveaway } from '../../src/models/Giveaway'
-import { Client } from 'better-replit-db';
-const mocked.set.mockReturnValue(db: Client = require('better-replit-db')
-jest.mock('better-replit-db');
-const mocked: jest.Mocked<Client> = db as any;
-)
+import { Client } from '@replit/database';
+
 let giveawayClass: GiveawayService;
 
-beforeEach(() => {
-
-  giveawayClass = new GiveawayService(db);
+jest.mock('@replit/database', () => {
+  return {
+    Client: jest.fn().mockImplementation(() => {
+      return {
+        pushArray: () => { },
+      };
+    })
+  };
 });
 
+const
+
+  beforeEach(() => {
+    giveawayClass = new GiveawayService();
+  });
+
 describe("test the give away service", () => {
-  it("should be able to create a giveaway", () => {
+  it("should be able to create a giveaway", async () => {
     const giveAway: Giveaway = {
       winnerIds: [],
       stillRunning: true,
@@ -22,8 +30,8 @@ describe("test the give away service", () => {
       description: "",
       endTimeinMins: 0
     };
-    mocked.set.mockReturnValue(giveAway)
-    var result = giveawayClass.createGiveaway(giveAway);
+
+    var result = await giveawayClass.createGiveaway(giveAway);
     // expect(mocked.set.m).toBeTruthy;
     expect(result).toBeInstanceOf(Object)
   })
