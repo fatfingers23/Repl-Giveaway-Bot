@@ -1,3 +1,12 @@
 {
-  "files": {}
+  "files": {
+    "src/index.ts": [
+      {
+        "id": "8c75a8a4-2e4f-4090-918d-8a098518be5a",
+        "line": 70,
+        "version": 1728,
+        "index": 1804
+      }
+    ]
+  }
 }
