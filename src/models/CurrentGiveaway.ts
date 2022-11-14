@@ -1,4 +1,4 @@
 export type CurrentGiveaway = {
-    guildId: number,
-    messageId: number
+    guildId: string,
+    messageId: string
 }

@@ -32,7 +32,7 @@ export default class GiveawayService {
    * @param messageId
    * @param userId
    */
-  public async addAParticipant(guildId: number, messageId: number, userId: number){
+  public async addAParticipant(guildId: string, messageId: string, userId: string){
     const addNewUser = (giveaway: Giveaway) => giveaway.participants?.push(userId);
     await this.manipulateParticipants(guildId, messageId, addNewUser)
   }
@@ -43,7 +43,7 @@ export default class GiveawayService {
    * @param messageId
    * @param userId
    */
-  public async removeAParticipant(guildId: number, messageId: number, userId: number){
+  public async removeAParticipant(guildId: string, messageId: string, userId: string){
     const removeAUser = (giveaway: Giveaway) => {
       const indexOfObject = giveaway.participants?.findIndex(user => {
         return user == userId;
@@ -83,7 +83,7 @@ export default class GiveawayService {
    * Returns all the current giveaways for a guild
    * @param guildId
    */
-  public async getGuildsCurrentGiveaways(guildId: number): Promise<Array<Giveaway>>{
+  public async getGuildsCurrentGiveaways(guildId: string): Promise<Array<Giveaway>>{
       const currentGiveaways: Array<CurrentGiveaway> = (await this.dbClient.get(`${this.giveawaysKey}:current_giveaways`) as Array<CurrentGiveaway>);
       const currentGuildGiveaways = currentGiveaways.filter(x => x.guildId === guildId);
       let giveawaysToReturn: Array<Giveaway> = [];
@@ -111,7 +111,7 @@ export default class GiveawayService {
     }
     const length = giveaway.participants.length;
     const indexOfWinner: number = Math.floor(Math.random() * length) as number;
-    const winningNumber: number = giveaway.participants[indexOfWinner];
+    const winningNumber: string = giveaway.participants[indexOfWinner];
     giveaway.participants.splice(indexOfWinner, 1);
     giveaway.winnerIds?.push(winningNumber);
     return giveaway;
@@ -123,9 +123,9 @@ export default class GiveawayService {
    * @param messageId
    * @param reRollCount
    */
-  public async reRollAGiveaway(guildId: Number, messageId: number, reRollCount?: number): Promise<Giveaway>{
+  public async reRollAGiveaway(guildId: string, messageId: string, reRollCount?: number): Promise<Giveaway>{
     let giveaway: Giveaway = (await this.dbClient.get(`${this.giveawaysKey}:${guildId}:${messageId}`) as Giveaway);
-    const oldWinners = giveaway.winnerIds as Array<number>;
+    const oldWinners = giveaway.winnerIds as Array<string>;
     giveaway.winnerIds = [];
     for(let i = 0; i < giveaway.possibleNumberOfWinners; i++){
       if(reRollCount != i) {
@@ -144,7 +144,7 @@ export default class GiveawayService {
    * @param callback
    * @private
    */
-  private async manipulateParticipants(guildId: number, messageId: number, callback: (giveaway: Giveaway) => void){
+  private async manipulateParticipants(guildId: string, messageId: string, callback: (giveaway: Giveaway) => void){
     const currentGiveawayKey = `${this.giveawaysKey}:${guildId}:${messageId}`;
     let giveaway: Giveaway = (await this.dbClient.get(currentGiveawayKey) as Giveaway);
     if(!giveaway.stillRunning){
