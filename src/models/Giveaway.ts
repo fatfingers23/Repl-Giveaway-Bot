@@ -1,8 +1,10 @@
 export type Giveaway = {
   stillRunning?: Boolean;
   winnerIds?: Array<number>;
-  messageId: Number;
-  guildId: Number;
-  description?: String;
-  endTimeinMins?: Number;
+  participants?: Array<number>
+  messageId: number;
+  guildId: number;
+  description?: string;
+  endTimeInMins?: number;
+  possibleNumberOfWinners: number
 }
