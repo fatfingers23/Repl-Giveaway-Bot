@@ -1,3 +1,5 @@
+import type {DateTime} from "luxon";
+
 export type Giveaway = {
 	stillRunning?: Boolean;
 	winnerIds?: Array<string>;
@@ -5,6 +7,6 @@ export type Giveaway = {
 	messageId: string;
 	guildId: string;
 	description?: string;
-	endTimeInMins?: number;
+	endTime?: DateTime;
 	possibleNumberOfWinners: number
 }

@@ -4,10 +4,11 @@ import helpCommand from './commands';
 const { intents, prefix, token } = config;
 
 
-import { PingCommand, CreateCommand } from './commands/index';
+import { PingCommand, CreateCommand, ListCommand } from './commands/index';
 const commandsMap = {
 	"ping": PingCommand,
-	"create": CreateCommand
+	"create": CreateCommand,
+	"list": ListCommand
 }
 
 const client = new Client({

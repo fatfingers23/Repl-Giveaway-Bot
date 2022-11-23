@@ -2,6 +2,8 @@ import {SlashCommandBuilder} from '@discordjs/builders'
 import type {CommandInteraction} from 'discord.js'
 import GiveawayService from '../services/giveawayService';
 import type {Giveaway} from "../models/Giveaway";
+import { DateTime} from 'luxon'
+const timestring = require('timestring');
 
 export const getData = new SlashCommandBuilder()
     .setName('create')
@@ -26,6 +28,14 @@ export default class CreateCommand {
         const winners = this.interaction.options.getInteger('winners');
         const prize = this.interaction.options.getString('prize');
         console.log(duration, winners, prize);
+        let timeTillInSeconds = 0;
+        let rightNow = DateTime.now();
+        try{
+            timeTillInSeconds = timestring(duration, 's')
+        }catch (e) {
+            await this.interaction.reply("There was an error parsing the time you gave")
+        }
+        let endTime = rightNow.plus({seconds: timeTillInSeconds});
         const message = await this.interaction.channel?.send("This is some fancy giveaway message that is pretty");
         if (message && this.interaction.guildId) {
             const giveaway: Giveaway = {
@@ -33,13 +43,12 @@ export default class CreateCommand {
                 messageId: message.id,
                 guildId: this.interaction.guildId,
                 description: prize ?? '',
-                possibleNumberOfWinners: winners ?? 0
+                possibleNumberOfWinners: winners ?? 0,
+                endTime: endTime
             }
             await this.giveawayService.createGiveaway(giveaway);
         }
-
-
-        // await this.interaction.reply("Haven't made it that far m8");
+        await this.interaction.reply("Your giveaway has successfully been created.");
     }
 }
 

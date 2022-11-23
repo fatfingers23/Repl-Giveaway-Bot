@@ -16,7 +16,7 @@ const isArrayUnique = (arr?: Array<string>) => Array.isArray(arr) && new Set(arr
       messageId: '0',
       guildId: '0',
       description: "",
-      endTimeInMins: 0,
+      endTime: "",
       participants: ['5'],
       possibleNumberOfWinners: 1
     };
@@ -27,7 +27,7 @@ describe("test the give away service", () => {
   it("should be able to create a giveaway", async () => {
 
 
-    MockClient.pushArray = jest.fn(() => [testGiveaway] );
+    MockClient.pushArray = jest.fn().mockResolvedValue([testGiveaway])
     MockClient.set = jest.fn(() => MockClient);
     let result = await GiveawayClass.createGiveaway(testGiveaway);
     expect(result).toEqual(testGiveaway)
@@ -55,7 +55,7 @@ describe("test the give away service", () => {
       messageId: '0',
       guildId: '0',
       description: "",
-      endTimeInMins: 0,
+      endTime: "",
       participants: ['100','200','300'],
       possibleNumberOfWinners: 2
     }
@@ -93,7 +93,7 @@ describe("test the give away service", () => {
       messageId: '1',
       guildId: '0',
       description: "",
-      endTimeInMins: 0,
+      endTime: "",
       participants: ['100','200','400'],
       possibleNumberOfWinners: 1
     };
@@ -114,7 +114,7 @@ describe("test the give away service", () => {
       messageId: '1',
       guildId: '1',
       description: "",
-      endTimeInMins: 0,
+      endTime: "2022-11-22T20:00:34.535-06:00",
       participants: ['5'],
       possibleNumberOfWinners: 1
     };
