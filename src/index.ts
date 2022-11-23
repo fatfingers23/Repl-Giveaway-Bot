@@ -60,6 +60,7 @@ client.on('messageCreate', async (message) => {
 });
 
 client.on('interactionCreate', async (interaction: Interaction) => {
+
 	if (!interaction.isCommand()) return;
 	const commandName = interaction.commandName;
 	console.log(commandName);

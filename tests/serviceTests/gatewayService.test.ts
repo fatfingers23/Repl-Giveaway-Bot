@@ -2,6 +2,7 @@ import GiveawayService from '../../src/services/giveawayService'
 import type { Giveaway } from '../../src/models/Giveaway'
 import type { Client} from "@replit/database";
 import type {CurrentGiveaway} from "../../src/models/CurrentGiveaway";
+import {DateTime} from "luxon";
 
 let MockClient:Client;
 let GiveawayClass: GiveawayService;
@@ -16,7 +17,8 @@ const isArrayUnique = (arr?: Array<string>) => Array.isArray(arr) && new Set(arr
       messageId: '0',
       guildId: '0',
       description: "",
-      endTime: "",
+      endTime: DateTime.now(),
+      hostId: "123",
       participants: ['5'],
       possibleNumberOfWinners: 1
     };
@@ -55,7 +57,8 @@ describe("test the give away service", () => {
       messageId: '0',
       guildId: '0',
       description: "",
-      endTime: "",
+      endTime: DateTime.now(),
+      hostId: "123",
       participants: ['100','200','300'],
       possibleNumberOfWinners: 2
     }
@@ -93,7 +96,8 @@ describe("test the give away service", () => {
       messageId: '1',
       guildId: '0',
       description: "",
-      endTime: "",
+      endTime: DateTime.now(),
+      hostId: "123",
       participants: ['100','200','400'],
       possibleNumberOfWinners: 1
     };
@@ -114,7 +118,8 @@ describe("test the give away service", () => {
       messageId: '1',
       guildId: '1',
       description: "",
-      endTime: "2022-11-22T20:00:34.535-06:00",
+      endTime: DateTime.now(),
+      hostId: "123",
       participants: ['5'],
       possibleNumberOfWinners: 1
     };

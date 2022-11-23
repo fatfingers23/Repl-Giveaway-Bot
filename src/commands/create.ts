@@ -37,6 +37,11 @@ export default class CreateCommand {
         }
         let endTime = rightNow.plus({seconds: timeTillInSeconds});
         const message = await this.interaction.channel?.send("This is some fancy giveaway message that is pretty");
+        const user = this.interaction.member?.user;
+        if(user == null){
+            //Unlikely, but makes the ide happy to check for null
+            throw  new Error("There was not a user for this command");
+        }
         if (message && this.interaction.guildId) {
             const giveaway: Giveaway = {
                 stillRunning: true,
@@ -44,7 +49,8 @@ export default class CreateCommand {
                 guildId: this.interaction.guildId,
                 description: prize ?? '',
                 possibleNumberOfWinners: winners ?? 0,
-                endTime: endTime
+                endTime: endTime,
+                hostId: user.id
             }
             await this.giveawayService.createGiveaway(giveaway);
         }
