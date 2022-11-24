@@ -31,7 +31,7 @@ export default class ListCommand {
         await this.interaction.reply({embeds: [message]});
     }
 
-    private  createMessage(giveaways: Array<Giveaway>): MessageEmbed {
+    private createMessage(giveaways: Array<Giveaway>): MessageEmbed {
         const fields = giveaways.map(giveaway => {
             //HACK not unwrapping properly
             let relativeEndTime: DateTime = DateTime.fromISO(giveaway.endTime?.toString() ?? "");
@@ -43,24 +43,9 @@ export default class ListCommand {
             }
         })
 
-        return  new MessageEmbed().setTitle("Current Giveaways").setDescription("Displays the current giveaways happening")
+        return new MessageEmbed().setTitle("Current Giveaways").setDescription("Displays the current giveaways happening")
             .addFields(fields)
 
-        // return {
-        //
-        //     "content": "",
-        //     "tts": false,
-        //     "description":"",
-        //     "embeds": [
-        //         {
-        //             "type": "rich",
-        //             "title": `Current Giveaways`,
-        //             "description": "",
-        //             "color": 0x00FFFF,
-        //             "fields": fields
-        //         }
-        //     ]
-        // }
     }
 }
 
