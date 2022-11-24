@@ -31,14 +31,19 @@ client.on("ready", async () => {
 
 client.on('interactionCreate', async (interaction: Interaction) => {
 
-	if (!interaction.isCommand()) return;
+	if (!interaction.isCommand() || !interaction.isButton()) return;
 	const commandName = interaction.commandName;
-	console.log(commandName);
 	// @ts-ignore
 	const Command = commandsMap[commandName];
-
 	const commandClass = new Command(interaction);
-	commandClass.execute();
+	if(interaction.isCommand()){
+		commandClass.execute();	
+	}
+
+	if(interaction.isButton()){
+		commandClass.buttonAction();
+	}
+	
 })
 
 client

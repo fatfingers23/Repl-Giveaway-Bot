@@ -61,37 +61,12 @@ export default class CreateCommand {
 
 
             message.edit({embeds: [embedGiveawayMessage], components: [actionRow]});
-            // {
-            //     "channel_id": `${context.params.event.channel_id}`,
-            //     "content": "",
-            //     "tts": false,
-            //     "components": [
-            //     {
-            //         "type": 1,
-            //         "components": [
-            //             {
-            //                 "style": 1,
-            //                 "label": `Sign Up`,
-            //                 "custom_id": `row_0_button_0`,
-            //                 "disabled": false,
-            //                 "type": 2
-            //             }
-            //         ]
-            //     }
-            // ],
-            //     "embeds": [
-            //     {
-            //         "type": "rich",
-            //         "title": `Description of giveaway`,
-            //         "description": ````\n{timeleft}\nHosted By: {<@user_id>}\nEntries: {entries count}\nWinners: <@winner1_id> <@winner2_id>\n````,
-            //     "color": 0x00FFFF
-            // }
-            // ]
-            // }
-
-
         }
         await this.interaction.reply("Your giveaway has successfully been created.");
+    }
+
+    public async buttonAction(): Promise<void>{
+        
     }
 }
 
