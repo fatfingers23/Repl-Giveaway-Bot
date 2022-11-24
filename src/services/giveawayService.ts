@@ -2,7 +2,7 @@ import type { Client } from '@replit/database'
 import type { Giveaway } from '../models/Giveaway'
 import EnduserMessageError from '../errors/EnduserMessageError';
 import type {CurrentGiveaway} from "../models/CurrentGiveaway";
-import {MessageEmbed} from "discord.js";
+import {EmbedBuilder} from "discord.js";
 import {DateTime} from "luxon";
 const db = require("@replit/database");
 
@@ -102,16 +102,20 @@ export default class GiveawayService {
   // }
   //
 
-  public createGiveawayMessage(giveaway: Giveaway): MessageEmbed{
+  /**
+   * Creates an embded message of the giveaway
+   * @param giveaway
+   */
+  public createGiveawayMessage(giveaway: Giveaway): EmbedBuilder{
     if(giveaway.description == null){
       throw new Error("The giveaway description is empty")
     }
     let relativeEndTime: DateTime = DateTime.fromISO(giveaway.endTime?.toString() ?? "");
     let winners = giveaway.winnerIds?.map(x => `<@${x}>`).join(' ');
-    let messageDescriptionText = "```" + `Hosted By:<@${giveaway.hostId}>\n${relativeEndTime.toRelative()}\nEntries: ${giveaway.participants?.length ?? 0}` +
+    let messageDescriptionText = `Hosted By:<@${giveaway.hostId}>\n${relativeEndTime.toRelative()}\nEntries: ${giveaway.participants?.length ?? 0}` +
         `\nWinners: ${winners ?? 'None'}`
 
-    return new MessageEmbed().setTitle(giveaway.description).setDescription(messageDescriptionText);
+    return new EmbedBuilder().setTitle(giveaway.description).setDescription(messageDescriptionText).setTimestamp();
   }
 
   /**

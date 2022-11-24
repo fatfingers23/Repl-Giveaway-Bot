@@ -1,10 +1,8 @@
 import {SlashCommandBuilder} from '@discordjs/builders'
-import type {CommandInteraction} from 'discord.js'
-import {MessageActionRow, MessageButton} from "discord.js";
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ChatInputCommandInteraction} from "discord.js";
 import GiveawayService from '../services/giveawayService';
 import type {Giveaway} from "../models/Giveaway";
 import {DateTime} from 'luxon'
-import {MessageButtonStyles} from "discord.js/typings/enums";
 
 const timestring = require('timestring');
 
@@ -18,12 +16,12 @@ export const getData = new SlashCommandBuilder()
 
 export default class CreateCommand {
 
-    constructor(interaction: CommandInteraction) {
+    constructor(interaction: ChatInputCommandInteraction) {
         this.interaction = interaction;
         this.giveawayService = new GiveawayService();
     }
 
-    protected interaction: CommandInteraction;
+    protected interaction: ChatInputCommandInteraction;
     protected giveawayService: GiveawayService;
 
     public async execute(): Promise<void> {
@@ -48,7 +46,7 @@ export default class CreateCommand {
         if (message && this.interaction.guildId) {
             const giveaway: Giveaway = {
                 stillRunning: true,
-                messageId: message.id,
+                messageId: message.id.toString(),
                 guildId: this.interaction.guildId,
                 description: prize ?? '',
                 possibleNumberOfWinners: winners ?? 0,
@@ -57,8 +55,11 @@ export default class CreateCommand {
             }
             await this.giveawayService.createGiveaway(giveaway);
             const embedGiveawayMessage = this.giveawayService.createGiveawayMessage(giveaway);
-            const actionRow = new MessageActionRow().addComponents(new MessageButton()
-                .setCustomId('giveaway').setLabel('Enter Giveaway').setStyle(MessageButtonStyles.PRIMARY));
+
+            const actionRow = new ActionRowBuilder<ButtonBuilder>().addComponents(new ButtonBuilder()
+                .setCustomId('giveaway').setLabel('Enter Giveaway').setStyle(ButtonStyle.Primary));
+
+
             message.edit({embeds: [embedGiveawayMessage], components: [actionRow]});
             // {
             //     "channel_id": `${context.params.event.channel_id}`,

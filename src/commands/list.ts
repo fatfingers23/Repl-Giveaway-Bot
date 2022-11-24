@@ -3,7 +3,7 @@ import type {CommandInteraction} from 'discord.js'
 import GiveawayService from '../services/giveawayService';
 import type {Giveaway} from "../models/Giveaway";
 import { DateTime} from 'luxon'
-import {MessageEmbed} from "discord.js";
+import {EmbedBuilder} from "discord.js";
 // const timestring = require('timestring');
 
 export const getData = new SlashCommandBuilder()
@@ -31,19 +31,19 @@ export default class ListCommand {
         await this.interaction.reply({embeds: [message]});
     }
 
-    private createMessage(giveaways: Array<Giveaway>): MessageEmbed {
+    private createMessage(giveaways: Array<Giveaway>): EmbedBuilder {
         const fields = giveaways.map(giveaway => {
             //HACK not unwrapping properly
             let relativeEndTime: DateTime = DateTime.fromISO(giveaway.endTime?.toString() ?? "");
 
             return {
                 name: `${giveaway.description}`,
-                value: `[${giveaway.messageId}](https://Link) | Winners: ${giveaway.possibleNumberOfWinners} | Hosted By @${giveaway.hostId} | Ends: ${relativeEndTime.toRelative()}`,
-                inline: true
+                value: `[${giveaway.messageId}](https://Link) | Winners: ${giveaway.possibleNumberOfWinners} | Hosted By <@${giveaway.hostId}> | Ends: ${relativeEndTime.toRelative()}`,
+                inline: false
             }
         })
 
-        return new MessageEmbed().setTitle("Current Giveaways").setDescription("Displays the current giveaways happening")
+        return new EmbedBuilder().setTitle("Current Giveaways").setDescription("Displays the current giveaways happening")
             .addFields(fields)
 
     }
