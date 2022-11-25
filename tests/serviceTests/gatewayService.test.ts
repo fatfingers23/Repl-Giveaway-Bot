@@ -40,11 +40,22 @@ describe("test the give away service", () => {
 	it("can add a participant", async () => {
 		const mockKey = 'giveaways:0:0';
 		let fakeUserId = '123';
-		MockClient.get = jest.fn().mockResolvedValue(testGiveaway);
+		const testAddParticipantGiveaway = {
+			winnerIds: [],
+			stillRunning: true,
+			messageId: '0',
+			guildId: '0',
+			description: "",
+			endTime: DateTime.now(),
+			hostId: "123",
+			possibleNumberOfWinners: 1
+		};
+		MockClient.get = jest.fn().mockResolvedValue(testAddParticipantGiveaway);
 		MockClient.set = jest.fn().mockResolvedValue(MockClient);
-		await GiveawayClass.addAParticipant('0', '0', fakeUserId);
+		const result = await GiveawayClass.addAParticipant('0', '0', fakeUserId);
 		expect(MockClient.get).toHaveBeenCalledWith(mockKey);
-		expect(MockClient.set).toHaveBeenCalledWith(mockKey, testGiveaway);
+		// expect(MockClient.set).toHaveBeenCalledWith(mockKey, testGiveaway);
+		expect(result.participants).toBe(expect.arrayContaining([fakeUserId]))
 	})
 
 	it("can select multiple winners", async () => {

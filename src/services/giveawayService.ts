@@ -35,6 +35,7 @@ export default class GiveawayService {
 	 * @param userId
 	 */
 	public async addAParticipant(guildId: string, messageId: string, userId: string): Promise<Giveaway> {
+		//TODO need to check for an empty array before pushing and if it is need to make sure to create an array
 		const addNewUser = (giveaway: Giveaway): Giveaway => {
 			giveaway.participants?.push(userId);
 			return giveaway;
